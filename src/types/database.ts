@@ -65,17 +65,24 @@ export type Database = {
         Row: Profile;
         Insert: Partial<Profile> & { id: string };
         Update: Partial<Profile>;
+        Relationships: [];
       };
       menu_items: {
         Row: MenuItem;
         Insert: Omit<MenuItem, 'id' | 'created_at'>;
         Update: Partial<MenuItem>;
+        Relationships: [];
       };
       meal_logs: {
         Row: MealLog;
         Insert: Omit<MealLog, 'id' | 'created_at' | 'menu_items'>;
         Update: Partial<MealLog>;
+        Relationships: [];
       };
     };
+    Views: Record<string, never>;
+    Functions: Record<string, never>;
+    Enums: Record<string, never>;
+    CompositeTypes: Record<string, never>;
   };
 };

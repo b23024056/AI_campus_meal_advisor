@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { AuthProvider, useAuth } from './context/AuthContext';
-import AuthPage from './pages/AuthPage';
-import OnboardingPage from './pages/OnboardingPage';
-import MenuPage from './pages/MenuPage';
-import LogPage from './pages/LogPage';
-import ProfilePage from './pages/ProfilePage';
+import AuthPage from './screens/AuthPage';
+import OnboardingPage from './screens/OnboardingPage';
+import MenuPage from './screens/MenuPage';
+import LogPage from './screens/LogPage';
+import ProfilePage from './screens/ProfilePage';
 import BottomNav from './components/BottomNav';
 import TopBar from './components/TopBar';
 import { Loader2 } from 'lucide-react';

@@ -1,9 +1,8 @@
-import type { AiAdvice, Profile } from '../types/database';
+import type { AiAdvice } from '../types/database';
 import { Sparkles, TrendingUp, Lightbulb } from 'lucide-react';
 
 interface Props {
   advice: AiAdvice;
-  profile: Profile | null;
 }
 
 function ScoreRing({ score }: { score: number }) {
@@ -32,7 +31,7 @@ function ScoreRing({ score }: { score: number }) {
   );
 }
 
-export default function AiAdviceCard({ advice, profile }: Props) {
+export default function AiAdviceCard({ advice }: Props) {
   return (
     <div className="mt-3 bg-gradient-to-br from-emerald-50 to-teal-50 rounded-xl p-4 border border-emerald-100">
       <div className="flex items-center gap-2 mb-3">

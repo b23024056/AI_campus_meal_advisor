@@ -2,7 +2,7 @@ import { useState, FormEvent } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { supabase } from '../lib/supabase';
 import type { ActivityLevel, Goal } from '../types/database';
-import { User, LogOut, Save, Loader2, CheckCircle, Target, Activity, Flame, Dumbbell } from 'lucide-react';
+import { User, LogOut, Save, Loader2, CheckCircle, Target, Flame, Dumbbell } from 'lucide-react';
 
 const GOAL_LABELS: Record<Goal, string> = {
   lose_weight: '減量・ダイエット',

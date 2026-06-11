@@ -60,8 +60,8 @@ export default function MenuPage() {
   async function getAdvice() {
     if (!profile || cart.length === 0) return;
     setLoadingAdvice(true);
-    const supabaseUrl = import.meta.env.VITE_SUPABASE_URL as string;
-    const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY as string;
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL as string;
+    const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY as string;
     const { data: { session } } = await supabase.auth.getSession();
 
     const res = await fetch(`${supabaseUrl}/functions/v1/ai-advice`, {
@@ -241,7 +241,7 @@ export default function MenuPage() {
               </button>
             </div>
 
-            {advice && <AiAdviceCard advice={advice} profile={profile} />}
+            {advice && <AiAdviceCard advice={advice} />}
           </div>
         </div>
       )}
