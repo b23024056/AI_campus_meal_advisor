@@ -56,7 +56,7 @@ export default function OnboardingPage() {
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
-    if (!user) return;
+    if (!supabase || !user) return;
     setLoading(true);
 
     const weight = parseFloat(form.weight_kg) || 60;

@@ -20,7 +20,7 @@ export default function LogPage() {
   const [weekOffset, setWeekOffset] = useState(0);
 
   useEffect(() => {
-    if (!user) return;
+    if (!supabase || !user) return;
     let mounted = true;
     (async () => {
       setLoading(true);
@@ -39,6 +39,7 @@ export default function LogPage() {
   }, [user]);
 
   async function deleteLog(id: string) {
+    if (!supabase) return;
     await supabase.from('meal_logs').delete().eq('id', id);
     setLogs((l) => l.filter((x) => x.id !== id));
   }

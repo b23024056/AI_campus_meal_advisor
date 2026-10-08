@@ -30,6 +30,10 @@ export default function MenuPage() {
 
   async function fetchMenu() {
     setLoadingMenu(true);
+    if (!supabase) {
+      setLoadingMenu(false);
+      return;
+    }
     const { data } = await supabase
       .from('menu_items')
       .select('*')
@@ -58,7 +62,7 @@ export default function MenuPage() {
   const cartProtein = cart.reduce((s, i) => s + i.protein_g, 0);
 
   async function getAdvice() {
-    if (!profile || cart.length === 0) return;
+    if (!supabase || !profile || cart.length === 0) return;
     setLoadingAdvice(true);
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL as string;
     const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY as string;
@@ -80,7 +84,7 @@ export default function MenuPage() {
   }
 
   async function saveToLog() {
-    if (!user || cart.length === 0) return;
+    if (!supabase || !user || cart.length === 0) return;
     setSaving(true);
     await supabase.from('meal_logs').insert(
       cart.map((item) => ({

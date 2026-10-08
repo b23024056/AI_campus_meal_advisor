@@ -42,7 +42,7 @@ export default function ProfilePage() {
 
   async function handleSave(e: FormEvent) {
     e.preventDefault();
-    if (!user) return;
+    if (!supabase || !user) return;
     setSaving(true);
     await supabase.from('profiles').upsert({
       id: user.id,
