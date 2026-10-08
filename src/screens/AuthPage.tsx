@@ -3,7 +3,7 @@ import { useAuth } from '../context/AuthContext';
 import { Utensils, Mail, Lock, Loader2 } from 'lucide-react';
 
 export default function AuthPage() {
-  const { signIn, signUp } = useAuth();
+  const { signIn, signUp, configError } = useAuth();
   const [mode, setMode] = useState<'login' | 'register'>('login');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -14,10 +14,15 @@ export default function AuthPage() {
     e.preventDefault();
     setErrorMsg('');
     setLoading(true);
-    const fn = mode === 'login' ? signIn : signUp;
-    const { error } = await fn(email, password);
-    setLoading(false);
-    if (error) setErrorMsg(error.message);
+    try {
+      const fn = mode === 'login' ? signIn : signUp;
+      const { error } = await fn(email, password);
+      if (error) setErrorMsg(error.message);
+    } catch (error) {
+      setErrorMsg(error instanceof Error ? error.message : '予期しないエラーが発生しました');
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
@@ -37,6 +42,7 @@ export default function AuthPage() {
           <div className="flex rounded-xl bg-gray-100 p-1 mb-6">
             {(['login', 'register'] as const).map((m) => (
               <button
+                type="button"
                 key={m}
                 onClick={() => setMode(m)}
                 className={`flex-1 py-2 text-sm font-medium rounded-lg transition-all ${
@@ -83,9 +89,15 @@ export default function AuthPage() {
               <p className="text-sm text-red-600 bg-red-50 rounded-lg px-3 py-2">{errorMsg}</p>
             )}
 
+            {configError && (
+              <p className="text-sm text-amber-700 bg-amber-50 border border-amber-200 rounded-lg px-3 py-2">
+                {configError}
+              </p>
+            )}
+
             <button
               type="submit"
-              disabled={loading}
+              disabled={loading || !!configError}
               className="w-full bg-emerald-600 hover:bg-emerald-700 disabled:bg-emerald-400 text-white font-semibold py-2.5 rounded-xl transition-colors flex items-center justify-center gap-2"
             >
               {loading && <Loader2 className="w-4 h-4 animate-spin" />}
